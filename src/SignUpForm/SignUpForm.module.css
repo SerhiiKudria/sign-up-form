@@ -1,8 +1,10 @@
 .formContainer {
+  display: flex;
+  flex-direction: column;
   margin: 10px auto;
   padding: 20px;
   box-shadow: 0 0 5px grey;
-  max-width: 800px;
+  max-width: 400px;
   width: 100%;
   min-width: 320px;
 }
@@ -19,26 +21,39 @@
 
 .label {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   position: relative;
 }
 
 .inputName {
+  align-self: flex-start;
+  flex-grow: 1;
+  color: green;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.inputName:last-child {
+  color: black;
+  text-transform: capitalize;
 }
 
 .input {
   padding: 10px;
   outline: none;
   font-size: 16px;
+  width: 100%;
+  margin: 5px;
 }
 
 .inputValid {
-  border: 3px solid green;
+  border: 2px solid green;
 }
 
 .inputInvalid {
-  border: 3px solid red;
+  border: 2px solid red;
 }
 
 .inputValid[type="checkbox"] {
@@ -49,9 +64,47 @@
   outline: 2px solid red;
 }
 
+.inputValid[type="checkbox"],
+.inputInvalid[type="checkbox"] {
+  flex-grow: 0;
+  width: auto;
+  margin: initial;
+  margin-right: 5px;
+  margin-left: 2px;
+}
+
 label img {
   position: absolute;
   width: 20px;
-  right: 10px;
-  top: 15px;
+  right: 15px;
+  top: 33px;
+}
+
+.circleBehindStar {
+  width: 80px;
+  height: 80px;
+  align-self: center;
+  background-color: green;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faPenSquare {
+  font-size: 30px;
+  color: white;
+}
+
+label:last-of-type {
+  flex-direction: row;
+}
+
+button {
+  padding: 15px;
+  background-color: green;
+  color: white;
+  margin: initial;
+  border: 2px solid green;
+  font-size: 16px;
 }

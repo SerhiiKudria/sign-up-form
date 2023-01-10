@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenSquare } from "@fortawesome/fontawesome-free-solid";
 import classNames from "classnames";
 import styles from "./SignUpForm.module.css";
 import showPwdImg from "./eye-solid.svg";
@@ -130,10 +132,13 @@ export default class SignUpForm extends Component {
 
     return (
       <div className={styles.formContainer}>
+        <div className={styles.circleBehindStar}>
+          <FontAwesomeIcon icon={faPenSquare} className={styles.faPenSquare} />
+        </div>
         <h1 className={styles.formHeader}>Create you account</h1>
         <form className={styles.loginForm} onSubmit={this.handleSignUp}>
           <label className={styles.label}>
-            <span className={styles.inputName}>User name</span>
+            <span className={styles.inputName}>Full name</span>
             <input
               className={userNameClassName}
               type="userName"
@@ -145,7 +150,7 @@ export default class SignUpForm extends Component {
             />
           </label>
           <label className={styles.label}>
-            <span className={styles.inputName}>Email</span>
+            <span className={styles.inputName}>Email adress</span>
             <input
               className={emailClassName}
               type="email"
@@ -196,8 +201,10 @@ export default class SignUpForm extends Component {
               name="isAgree"
               checked={isAgree}
               onChange={this.handleInputChange}
-            />
-            I agree
+            ></input>
+            <span className={styles.inputName}>
+              I agree all statement in terms of service
+            </span>
           </label>
           <button type="submit">Sign Up</button>
         </form>
