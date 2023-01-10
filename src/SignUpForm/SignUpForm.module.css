@@ -21,6 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .inputName {
@@ -29,14 +30,15 @@
 .input {
   padding: 10px;
   outline: none;
+  font-size: 16px;
 }
 
 .inputValid {
-  border: 2px solid green;
+  border: 3px solid green;
 }
 
 .inputInvalid {
-  border: 2px solid red;
+  border: 3px solid red;
 }
 
 .inputValid[type="checkbox"] {
@@ -45,4 +47,11 @@
 
 .inputInvalid[type="checkbox"] {
   outline: 2px solid red;
+}
+
+label img {
+  position: absolute;
+  width: 20px;
+  right: 10px;
+  top: 15px;
 }

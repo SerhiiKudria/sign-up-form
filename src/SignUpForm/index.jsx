@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import styles from "./SignUpForm.module.css";
+import showPwdImg from "./eye-solid.svg";
+import hidePwdImg from "./eye-slash-solid.svg";
 
 const INITIAL_VALUES = {
-  name: "",
+  userName: "",
   email: "",
   password: "",
   passwordConfirmation: "",
@@ -35,6 +37,7 @@ export default class SignUpForm extends Component {
       showPasswordConfirmation: false,
       isAgree: false,
       isIsAgreeValid: false,
+      passwordsEqual: false,
     };
   }
 
@@ -45,22 +48,42 @@ export default class SignUpForm extends Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
+    const obj = {
+      [name]: value,
+      ["is" + this.capitalize(name) + "Valid"]:
+        LOGIN_FORM_REX_EXP[name].test(value),
+    };
+
+    if (name === "passwordConfirmation") {
+      obj.isPasswordConfirmationValid =
+        obj.isPasswordConfirmationValid && this.state.password === value;
+    }
+
+    if (name === "password") {
+      obj.isPasswordConfirmationValid =
+        this.state.passwordConfirmation === value;
+    }
+
+    this.setState(obj);
+    console.log("obj", obj);
+  };
+
+  handleShowPassword = (event) => {
     this.setState({
-      [name]: value,
-      ["is" + this.capitalize(name) + "Valid"]:
-        LOGIN_FORM_REX_EXP[name].test(value),
+      showPassword: !this.state.showPassword,
     });
-    console.log("object :>> ", {
-      [name]: value,
-      ["is" + this.capitalize(name) + "Valid"]:
-        LOGIN_FORM_REX_EXP[name].test(value),
+  };
+
+  handleShowPasswordConfirmation = (event) => {
+    this.setState({
+      showPasswordConfirmation: !this.state.showPasswordConfirmation,
     });
   };
 
   handleSignUp = (e) => {
     e.preventDefault();
     // send request
-    //this.setState(INITIAL_VALUES);
+    this.setState(INITIAL_VALUES);
   };
 
   render() {
@@ -77,6 +100,7 @@ export default class SignUpForm extends Component {
       isIsAgreeValid,
       showPassword,
       showPasswordConfirmation,
+      passwordsEqual,
     } = this.state;
 
     const userNameClassName = classNames(styles.input, {
@@ -141,6 +165,11 @@ export default class SignUpForm extends Component {
               value={password}
               onChange={this.handleInputChange}
             />
+            <img
+              title={showPassword ? "Show password" : "Hide password"}
+              src={showPassword ? hidePwdImg : showPwdImg}
+              onClick={this.handleShowPassword}
+            />
           </label>
           <label className={styles.label}>
             <span className={styles.inputName}>Password confirmation</span>
@@ -151,6 +180,13 @@ export default class SignUpForm extends Component {
               placeholder="password confirmation"
               value={passwordConfirmation}
               onChange={this.handleInputChange}
+            />
+            <img
+              title={
+                showPasswordConfirmation ? "Show password" : "Hide password"
+              }
+              src={showPasswordConfirmation ? hidePwdImg : showPwdImg}
+              onClick={this.handleShowPasswordConfirmation}
             />
           </label>
           <label className={styles.label}>
